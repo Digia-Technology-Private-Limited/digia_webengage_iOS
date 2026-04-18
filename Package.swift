@@ -7,11 +7,14 @@ import PackageDescription
 // │  SPM dependency (this package):                                             │
 // │    .package(                                                                │
 // │        url: "…/digia_engage_webengage.git",                                 │
-// │        from: "0.1.0"                                                        │
+// │        from: "1.0.0"                                                        │
 // │    )                                                                        │
 // │                                                                             │
-// │  WebEngage SDK is fetched automatically as remote SPM binary targets.       │
-// │  No CocoaPods setup is required in the host app.                            │
+// │  ⚠️  PEER DEPENDENCY – Host app must add WebEngage separately:              │
+// │    CocoaPods:  pod 'WebEngage'                                              │
+// │    SPM:        https://github.com/WebEngage/WebEngage-iOS-SDK               │
+// │                                                                             │
+// │  WEPersonalization is bundled locally in this package.                      │
 // └─────────────────────────────────────────────────────────────────────────────┘
 
 let package = Package(
@@ -32,19 +35,20 @@ let package = Package(
         // Digia Engage iOS SDK — available via Swift Package Manager.
         .package(
             url: "https://github.com/Digia-Technology-Private-Limited/digia_engage_ios.git",
-                from: "1.0.0"
+            from: "1.0.0"
         ),
     ],
     targets: [
+        // WebEngage is CocoaPods-only — bundle the xcframework locally so SPM can resolve the import.
         .binaryTarget(
-            name: "WEPersonalization",
-            path: "Frameworks/WEPersonalization.xcframework"
+            name: "WebEngage",
+            path: "Frameworks/WebEngage.xcframework"
         ),
         .target(
             name: "DigiaEngageWebEngage",
             dependencies: [
                 .product(name: "DigiaEngage", package: "digia_engage_ios"),
-                .target(name: "WEPersonalization"),
+                .target(name: "WebEngage"),
             ],
             path: "Sources"
         ),

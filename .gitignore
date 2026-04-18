@@ -28,7 +28,7 @@ Carthage/Build/
 Package.resolved
 
 # Frameworks
-Frameworks/*.xcframework/
+Frameworks/WEPersonalization.xcframework/
 
 # User-specific
 *.moved-aside

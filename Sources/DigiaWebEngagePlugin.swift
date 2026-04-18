@@ -20,7 +20,7 @@ import DigiaEngage
 /// Digia.register(WebEngagePlugin())
 /// ```
 @MainActor
-public final class WebEngagePlugin: DigiaCEPPlugin {
+public final class DigiaWebEngagePlugin: DigiaCEPPlugin {
 
     // MARK: - State
 
